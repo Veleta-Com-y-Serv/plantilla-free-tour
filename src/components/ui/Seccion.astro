@@ -1,0 +1,12 @@
+---
+// Envoltorio de sección: una banda a todo el ancho de la ventana (`banda`: crema, piedra, papel, teja, azul
+// o granito) con el contenido dentro de un ancho generoso (90 rem) y 16 px de margen lateral en móvil.
+// Con `sinContenedor` la banda no lleva ritmo ni contenedor (para filas foto/texto a sangre).
+// Adaptado de AstroWind (WidgetWrapper.astro), © onWidget, licencia MIT (LICENSE-ASTROWIND.md).
+interface Props { id?: string; class?: string; contenedor?: string; banda?: string; etiqueta?: string; sinContenedor?: boolean }
+const { id, class: clase = '', contenedor = '', banda = 'crema', etiqueta, sinContenedor = false } = Astro.props;
+---
+
+<section class:list={['banda', `banda--${banda}`, !sinContenedor && 'seccion', clase]} id={id} aria-label={etiqueta}>
+  {sinContenedor ? <slot /> : <div class:list={['contenedor', contenedor]}><slot /></div>}
+</section>

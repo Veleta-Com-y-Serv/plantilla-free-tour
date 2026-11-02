@@ -1,0 +1,49 @@
+---
+// Apartado de texto genérico (site.yaml: `tipo: texto`): banda papel. Con `imagen`, fila 50/50 a sangre (la foto
+// toca el borde derecho de la ventana); sin ella, titular y párrafos a todo el ancho del contenedor.
+// Debajo, `items: [{titulo, texto, icono}]` en columnas con insignia teja y `cta` opcional.
+import { seccion, parrafos, enlace } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const cta = enlace(s?.cta);
+---
+
+{
+  s && (
+    <Seccion id={id} banda="papel" sinContenedor>
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-2']}>
+        <div class:list={['py-16 md:py-24', s.imagen ? 'px-4 md:px-12 xl:pl-[max(2rem,calc((100vw-90rem)/2+2rem))] xl:pr-20' : 'contenedor']}>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} forma="izq" />
+          <div class="max-w-[46rem] space-y-4 text-lg">
+            {parrafos(s.texto).map((p) => <p>{p}</p>)}
+          </div>
+          {s.items.length > 0 && (
+            <ul class:list={['mt-12 grid gap-8 sm:grid-cols-2', !s.imagen && 'lg:grid-cols-3']}>
+              {s.items.map((it) => (
+                <li class="flex gap-4">
+                  <span class="insignia"><Icono nombre={it.icono} tam={22} /></span>
+                  <div>
+                    <h3 class="text-[1.4rem]">{it.titulo}</h3>
+                    {it.texto && <p class="suave mt-1">{it.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {cta && <p class="mt-12"><a class="btn" href={cta.url}>{cta.texto}</a></p>}
+        </div>
+        {s.imagen && (
+          <div class="relative min-h-[18rem] md:min-h-[26rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} class="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+      </div>
+    </Seccion>
+  )
+}

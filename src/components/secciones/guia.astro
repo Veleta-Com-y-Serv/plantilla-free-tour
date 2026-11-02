@@ -1,0 +1,63 @@
+---
+// El guía: banda granito en fila 50/50 a sangre. La foto (`imagen`: una calle o un rincón de la ciudad, sin caras)
+// toca el borde izquierdo de la ventana; a la derecha, titular en primera persona, `texto` en párrafos, credenciales
+// (`items`: titulo, icono) con insignia teja, quién hace los tours (`personas`: nombre, cargo, foto, texto) y `cta`.
+// Sin imagen, el texto ocupa el ancho del contenedor.
+import { seccion, parrafos, enlace, cadena } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const cta = enlace(s?.cta);
+const items = (s?.items ?? []).filter((i) => cadena(i.titulo));
+const personas = (s?.personas ?? []).filter((p) => cadena(p.nombre));
+---
+
+{
+  s && (
+    <Seccion id={id} banda="granito" sinContenedor>
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-2']}>
+        {s.imagen && (
+          <div class="relative min-h-[22rem] md:min-h-[30rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1500} class="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+        <div class:list={['py-16 md:py-24 xl:py-28', s.imagen ? 'px-4 md:px-12 xl:pr-[max(2rem,calc((100vw-90rem)/2+2rem))] xl:pl-20' : 'contenedor']}>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} forma="izq" />
+          <div class="max-w-[42rem] space-y-4 text-lg text-fondo/90">
+            {parrafos(s.texto).map((p) => <p>{p}</p>)}
+          </div>
+          {items.length > 0 && (
+            <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+              {items.map((it) => (
+                <li class="flex items-center gap-3 font-bold leading-snug">
+                  <span class="insignia"><Icono nombre={it.icono || 'insignia'} tam={22} /></span>
+                  {it.titulo}
+                </li>
+              ))}
+            </ul>
+          )}
+          {personas.length > 0 && (
+            <ul class="mt-12 grid gap-6 border-t-2 border-dotted border-[color:var(--claro-suave)] pt-10 md:grid-cols-2">
+              {personas.map((p) => (
+                <li class="flex gap-4">
+                  <Imagen src={p.foto || '/placeholders/persona.svg'} alt={p.nombre} ancho={144} alto={144} class="persona-foto" respaldo="/placeholders/persona.svg" />
+                  <div>
+                    <p class="text-xl font-black tracking-tight">{p.nombre}</p>
+                    {p.cargo && <p class="serif text-lg italic text-fondo/85">{p.cargo}</p>}
+                    {p.texto && <p class="suave mt-2 text-[.98rem]">{p.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          {cta && <p class="mt-12"><a class="btn" href={cta.url}>{cta.texto}<Icono nombre="flecha" class="flecha" tam={18} /></a></p>}
+        </div>
+      </div>
+    </Seccion>
+  )
+}

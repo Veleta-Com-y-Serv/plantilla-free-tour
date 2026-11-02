@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base titulo="Página no encontrada">
+  <section class="banda banda--teja troquel">
+    <div class="contenedor grid items-center gap-10 py-24 md:py-36 lg:grid-cols-[minmax(0,1fr)_auto]">
+      <div>
+        <p class="antetitulo">Error 404 · Esta calle no sale en el mapa</p>
+        <h1 class="titulo-hero mt-5 max-w-[13ch]">Te has salido del recorrido</h1>
+        <p class="mt-6 max-w-[34rem] text-lg text-fondo/90">Puede que el enlace esté mal o que la página haya cambiado de sitio. Vuelve al punto de encuentro y seguimos.</p>
+        <p class="mt-10"><a class="btn" href="/">Volver al inicio</a></p>
+      </div>
+      <p class="sello-giro hidden place-items-center text-[3.5rem] font-black tracking-tighter lg:grid" aria-hidden="true">404</p>
+    </div>
+  </section>
+</Base>

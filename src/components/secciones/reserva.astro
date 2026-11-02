@@ -1,0 +1,60 @@
+---
+// Reserva: banda azul partida. A la izquierda, titular, `texto`, los pasos (`items`: titulo, texto) numerados y, si
+// hay `enlace_reservas`, un botón a la reserva en línea (`texto_reservas`); a la derecha, el formulario corto dentro de
+// una entrada de papel con talón troquelado: nombre, teléfono, tour (los `tours` de la web), fecha y personas.
+// `boton`: texto del botón; `nota`: frase bajo el nombre en el talón de la entrada.
+import { seccion, site, cadena } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const pasos = (s?.items ?? []).filter((i) => cadena(i.titulo));
+const urlReservas = cadena(s?.enlace_reservas) || cadena(s?.url_reservas);
+const textoReservas = cadena(s?.texto_reservas) || 'Reservar en línea';
+const nota = cadena(s?.nota);
+const boton = cadena(s?.boton) || undefined;
+const tours = [...new Set(Object.values(site.secciones).filter((x) => x.activa).flatMap((x) => x.tours.map((t) => t.titulo)))];
+---
+
+{
+  s && (
+    <Seccion id={id} banda="azul">
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20 xl:gap-28">
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} forma="izq" />
+          {pasos.length > 0 && (
+            <ol class="grid gap-6">
+              {pasos.map((p, i) => (
+                <li class="flex gap-4">
+                  <span class="paso-num" aria-hidden="true">{i + 1}</span>
+                  <div>
+                    <p class="text-xl font-black tracking-tight">{p.titulo}</p>
+                    {p.texto && <p class="suave mt-0.5">{p.texto}</p>}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+          {urlReservas && (
+            <p class="mt-10"><a class="btn-sec" href={urlReservas} rel="noopener" target="_blank">{textoReservas}<Icono nombre="flecha" class="flecha" tam={18} /></a></p>
+          )}
+        </div>
+        <div class="entrada">
+          <div class="entrada-talon flex items-center gap-4 px-5 py-5 md:px-8 md:py-6">
+            <span class="grid size-12 shrink-0 place-items-center rounded-full bg-primario text-fondo" aria-hidden="true"><Icono nombre="ticket" tam={24} /></span>
+            <div class="min-w-0">
+              <p class="text-xl font-black tracking-tight">{site.nombre}</p>
+              {nota && <p class="serif suave italic">{nota}</p>}
+            </div>
+          </div>
+          <div class="px-5 pt-8 pb-6 md:px-8 md:pb-8">
+            <FormularioContacto boton={boton} reserva tours={tours} prefijo={`r-${id}`} asunto={`Reserva desde la web de ${site.nombre}`} />
+          </div>
+        </div>
+      </div>
+    </Seccion>
+  )
+}

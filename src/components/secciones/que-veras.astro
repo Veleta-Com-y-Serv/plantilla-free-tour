@@ -1,0 +1,47 @@
+---
+// Qué verás: banda piedra con el titular y, debajo, un mosaico de fotos de borde a borde de la ventana, sin margen
+// (`items`: titulo, texto, imagen): la primera parada grande (2×2 en escritorio) y el resto en cuatro columnas;
+// en móvil, dos columnas. Cada foto lleva su número de parada, el título y el texto encima. Sin paradas, solo el
+// titular y el texto.
+import { seccion, cadena } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const paradas = (s?.items ?? []).filter((i) => cadena(i.titulo));
+// Con cinco o más paradas la primera es grande (2×2) y la última se estira hasta cerrar la fila; con menos, columnas iguales.
+const n = paradas.length;
+const grande = n >= 5;
+const resto = (n + 3) % 4;
+const estiraUltima = grande && resto !== 0 ? (({ 2: 'min-[900px]:col-span-2', 3: 'min-[900px]:col-span-3', 4: 'min-[900px]:col-span-4' } as Record<number, string>)[5 - resto] ?? '') : '';
+const columnas = grande ? '' : ['', 'min-[900px]:grid-cols-1', 'min-[900px]:grid-cols-2', 'min-[900px]:grid-cols-3', 'min-[900px]:grid-cols-4'][n] ?? '';
+---
+
+{
+  s && (
+    <Seccion id={id} banda="piedra" sinContenedor>
+      <div class:list={['contenedor pt-16 md:pt-28', paradas.length === 0 && 'pb-16 md:pb-28']}>
+        <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      </div>
+      {paradas.length > 0 && (
+        <ol class:list={['mosaico', grande && 'mosaico--grande', columnas]}>
+          {paradas.map((p, i) => (
+            <li class:list={[i === n - 1 && estiraUltima]}>
+              <figure class="parada">
+                <Imagen src={p.imagen || '/placeholders/parada.svg'} alt={altFicha(p)} ancho={grande && i === 0 ? 1200 : 700} alto={grande && i === 0 ? 1200 : 700} respaldo="/placeholders/parada.svg" />
+                <figcaption class="parada-texto">
+                  <span class="parada-num" aria-hidden="true">{i + 1}</span>
+                  <h3 class="parada-titulo mt-3 text-[1.35rem] md:text-[1.6rem]">{p.titulo}</h3>
+                  {p.texto && <p class="mt-1.5 hidden max-w-[34rem] text-[.98rem] leading-snug text-fondo/90 sm:block">{p.texto}</p>}
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ol>
+      )}
+    </Seccion>
+  )
+}

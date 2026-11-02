@@ -1,0 +1,84 @@
+---
+// Contacto: banda crema en fila 50/50 a sangre: a la izquierda titular, `texto`, el teléfono enorme, botones de
+// llamar y WhatsApp, email, punto de encuentro (contacto.direccion) con «Cómo llegar» y el horario de atención
+// (`horario: [{dia, horas}]` de esta sección o contacto.horario); a la derecha la foto (`imagen`) toca el borde
+// derecho de la ventana. Si la web no tiene un apartado de reserva activo, el formulario corto (mailto) va aquí.
+// `boton`: texto del botón.
+import { seccion, site, tel, whatsapp, mapa, cadena } from '../../data/site';
+import { altSeccion } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+import FormularioContacto from '../ui/FormularioContacto.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const c = site.contacto;
+const boton = cadena(s?.boton) || undefined;
+const horario = (s?.horario ?? []).filter((h) => cadena(h.dia) || cadena(h.horas));
+const hayReserva = Object.entries(site.secciones).some(([k, x]) => x.activa && (k === 'reserva' || x.tipo === 'reserva'));
+const wa = whatsapp(c.whatsapp, `Hola, escribo desde la web de ${site.nombre}.`);
+---
+
+{
+  s && (
+    <Seccion id={id} banda="crema" sinContenedor>
+      <div class:list={['grid', s.imagen && 'lg:grid-cols-2']}>
+        <div class:list={['py-16 md:py-24 xl:py-28', s.imagen ? 'px-4 md:px-12 xl:pl-[max(2rem,calc((100vw-90rem)/2+2rem))] xl:pr-20' : 'contenedor']}>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} forma="izq" />
+          {c.telefono && (
+            <a href={tel(c.telefono)} class="block text-[clamp(2.5rem,7vw,4.75rem)] leading-none font-black tracking-tighter text-[color:var(--teja-texto)] no-underline tabular-nums hover:underline">
+              <span class="sr-only">Teléfono: </span>{c.telefono}
+            </a>
+          )}
+          {(c.telefono || c.whatsapp) && (
+            <div class="mt-7 flex flex-wrap gap-3">
+              {c.telefono && <a class="btn" href={tel(c.telefono)}><Icono nombre="telefono" tam={20} />Llamar</a>}
+              {c.whatsapp && <a class="btn-sec" href={wa} rel="noopener" target="_blank"><Icono nombre="whatsapp" tam={20} />WhatsApp</a>}
+            </div>
+          )}
+          <dl class="mt-10 grid gap-6 border-t-2 border-dotted border-[color:var(--linea)] pt-8 sm:grid-cols-2">
+            {c.email && (
+              <div>
+                <dt class="serif text-lg text-[color:var(--teja-texto)] italic">Email</dt>
+                <dd class="mt-1"><a class="break-all underline-offset-4 hover:underline" href={`mailto:${c.email}`}>{c.email}</a></dd>
+              </div>
+            )}
+            {c.direccion && (
+              <div>
+                <dt class="serif text-lg text-[color:var(--teja-texto)] italic">Punto de encuentro</dt>
+                <dd class="mt-1">{c.direccion}</dd>
+                <dd class="mt-2"><a class="inline-flex items-center gap-2 font-bold underline underline-offset-4" href={mapa(c.direccion)} rel="noopener" target="_blank"><Icono nombre="mapa" tam={16} />Cómo llegar</a></dd>
+              </div>
+            )}
+            {(horario.length > 0 || c.horario) && (
+              <div class="sm:col-span-2">
+                <dt class="serif text-lg text-[color:var(--teja-texto)] italic">Horario de atención</dt>
+                {horario.length > 0 ? (
+                  horario.map((h) => (
+                    <dd class="mt-1 flex flex-wrap justify-between gap-x-6 border-b border-[color:var(--linea)] py-2">
+                      <span class="font-semibold">{h.dia}</span><span class="suave">{h.horas}</span>
+                    </dd>
+                  ))
+                ) : (
+                  <dd class="mt-1">{c.horario}</dd>
+                )}
+              </div>
+            )}
+          </dl>
+          {!hayReserva && (
+            <div class="mt-12 max-w-[40rem]">
+              <FormularioContacto boton={boton} prefijo={`c-${id}`} />
+            </div>
+          )}
+        </div>
+        {s.imagen && (
+          <div class="relative min-h-[18rem] md:min-h-[26rem] lg:min-h-full">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={900} class="absolute inset-0 h-full w-full object-cover" />
+          </div>
+        )}
+      </div>
+    </Seccion>
+  )
+}

@@ -1,0 +1,72 @@
+---
+// Tours: banda crema con las fichas como sellos de correos (borde troquelado): foto con el precio como valor del
+// sello (`precio`: «Free tour (propina)», «28 € por persona»; vacío = no sale) y el matasellos con la `duracion`;
+// debajo `titulo`, `texto`, `horario`, `punto_encuentro` e `idioma`, y los botones «Reservar» (lleva el tour al
+// formulario de reserva) y WhatsApp con el tour en el mensaje. El tour con `destacado: true` va primero, a todo el
+// ancho y con `etiqueta_destacado`. `cta` opcional debajo. Sin tours no se pinta.
+import { seccion, site, cadena, enlace, whatsapp } from '../../data/site';
+import { altFicha } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const tours = s?.tours ?? [];
+const destacado = tours.find((t) => t.destacado) ?? null;
+const resto = tours.filter((t) => t !== destacado);
+const etiqueta = cadena(s?.etiqueta_destacado);
+const cta = enlace(s?.cta);
+const reserva = Object.entries(site.secciones).find(([k, x]) => x.activa && (k === 'reserva' || x.tipo === 'reserva'))?.[0];
+const destino = reserva ? `#${reserva}` : '#contacto';
+const wa = (t: string) => whatsapp(site.contacto.whatsapp, `Hola, quiero información del tour «${t}».`);
+const fichas = [...(destacado ? [destacado] : []), ...resto];
+---
+
+{
+  s && tours.length > 0 && (
+    <Seccion id={id} banda="crema">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      <ul class="flex flex-wrap justify-center gap-x-6 gap-y-10 lg:gap-x-8">
+        {fichas.map((t) => {
+          const grande = t === destacado;
+          return (
+            <li class:list={['w-full', grande ? '' : 'md:w-[calc(50%-.75rem)] lg:w-[calc((100%-4rem)/3)]']}>
+              <article class:list={['sello', grande && 'sello--destacado']}>
+                <div class="sello-dentro">
+                  <div class="sello-foto">
+                    <Imagen src={t.imagen || '/placeholders/tour.svg'} alt={altFicha(t)} ancho={grande ? 1200 : 800} alto={grande ? 800 : 600} respaldo="/placeholders/tour.svg" />
+                    {grande && etiqueta && <span class="sello-etiqueta">{etiqueta}</span>}
+                    {t.duracion && <span class="matasellos" aria-label={`Duración: ${t.duracion}`}>{t.duracion}</span>}
+                    {t.precio && <span class="sello-valor">{t.precio}</span>}
+                  </div>
+                  <div class:list={['flex flex-1 flex-col p-5 md:p-6', grande && 'lg:justify-center lg:p-10 xl:p-14']}>
+                    <h3 class:list={[grande ? 'text-[clamp(2rem,3.4vw,3.25rem)]' : 'text-[1.65rem]']}>{t.titulo}</h3>
+                    {t.texto && <p class:list={['suave mt-3', grande && 'text-lg']}>{t.texto}</p>}
+                    {(t.horario || t.punto_encuentro || t.idioma) && (
+                      <ul class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[color:var(--linea)] pt-5">
+                        {t.horario && <li class="dato"><Icono nombre="calendario" tam={18} /><span><span class="sr-only">Horario: </span>{t.horario}</span></li>}
+                        {t.punto_encuentro && <li class="dato"><Icono nombre="mapa" tam={18} /><span><span class="sr-only">Punto de encuentro: </span>{t.punto_encuentro}</span></li>}
+                        {t.idioma && <li class="dato"><Icono nombre="idiomas" tam={18} /><span><span class="sr-only">Idioma: </span>{t.idioma}</span></li>}
+                      </ul>
+                    )}
+                    <div class="mt-auto flex flex-wrap gap-2 pt-6">
+                      <a class="btn" href={destino} data-tour={t.titulo}>Reservar<Icono nombre="flecha" class="flecha" tam={18} /></a>
+                      {site.contacto.whatsapp && (
+                        <a class="btn-sec" href={wa(t.titulo)} rel="noopener" target="_blank" aria-label={`Preguntar por WhatsApp: ${t.titulo}`}><Icono nombre="whatsapp" tam={18} />Preguntar</a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+      {cta && (
+        <p class="mt-14 text-center"><a class="btn-sec" href={cta.url}>{cta.texto}<Icono nombre="flecha" class="flecha" tam={18} /></a></p>
+      )}
+    </Seccion>
+  )
+}

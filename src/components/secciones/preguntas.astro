@@ -1,0 +1,34 @@
+---
+// Preguntas frecuentes: banda papel con el titular a la izquierda (fijo al bajar en escritorio) y
+// `preguntas: [{pregunta, respuesta}]` en acordeón nativo (details/summary) a la derecha, con «+» en círculo teja.
+// Sin preguntas no se pinta.
+import { seccion, parrafos } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const lista = (s?.preguntas ?? []).filter((p) => p.pregunta);
+---
+
+{
+  s && lista.length > 0 && (
+    <Seccion id={id} banda="papel">
+      <div class="grid gap-4 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.3fr)] lg:gap-20">
+        <div class="lg:sticky lg:top-[calc(var(--alto-cabecera)+2rem)] lg:self-start">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} forma="izq" />
+        </div>
+        <div class="preguntas">
+          {lista.map((p) => (
+            <details>
+              <summary>{p.pregunta}</summary>
+              <div class="space-y-3">
+                {parrafos(p.respuesta).map((t) => <p>{t}</p>)}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Seccion>
+  )
+}

@@ -1,0 +1,21 @@
+---
+// Titular de sección: antetítulo en serif cursiva con una línea, título en sans muy pesada y texto.
+// `forma`: «partido» (título a la izquierda y texto a la derecha en escritorio), «izq» o «centro».
+// Adaptado de AstroWind (Headline.astro), © onWidget, MIT.
+interface Props { titulo?: string; antetitulo?: string; texto?: string; class?: string; nivel?: 1 | 2; forma?: 'partido' | 'izq' | 'centro' }
+const { titulo, antetitulo, texto, class: clase = '', nivel = 2, forma = 'partido' } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+const partido = forma === 'partido' && titulo && texto;
+---
+
+{
+  (titulo || antetitulo || texto) && (
+    <div class:list={['titular', partido && 'titular--partido', forma === 'centro' && 'titular--centro', clase]}>
+      <div>
+        {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+        {titulo && <H class="titulo-seccion">{titulo}</H>}
+      </div>
+      {texto && <p class="titular-texto suave">{texto}</p>}
+    </div>
+  )
+}

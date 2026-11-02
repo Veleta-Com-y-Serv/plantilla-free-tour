@@ -1,0 +1,92 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: free-tour
+nombre: Free tour y visitas guiadas
+descripcion: "Web viva para guías y free tours: tours con horario y punto de encuentro, calendario y reserva gratis."
+sectores:
+  - { id: free-tour, nombre: Free tour }
+  - { id: guia-turistico, nombre: Guía turístico }
+  - { id: visitas-guiadas, nombre: Visitas guiadas }
+  - { id: rutas-ciudad, nombre: Rutas por la ciudad }
+  - { id: turismo, nombre: Turismo }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: tours, nombre: Tours }
+  - { id: horarios, nombre: Horarios }
+  - { id: guia, nombre: Tu guía }
+  - { id: que-veras, nombre: Qué verás }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: reserva, nombre: Reserva }
+  - { id: contacto, nombre: Contacto }
+estilo: vivo
+plan_minimo: gratis
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-free-tour.noexpertise.com
+activa: true
+orden: 620
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tus tours"
+    pregunta: "¿Cómo te llamas o cómo se llaman tus tours, en qué ciudad los haces y qué los hace especiales?"
+    ayuda: "Free tours a la gorra, visitas con precio, idiomas, grupos pequeños… Habla en primera persona: «Soy Uxía y…»."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Cuál es tu punto de encuentro habitual y cómo te pueden llamar o escribir?"
+    ayuda: "El teléfono y el WhatsApp salen en la barra de abajo del móvil. Si reservas en otra web, pon su dirección. Lo que dejes vacío no sale."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, secciones.reserva.enlace_reservas, redes.instagram, redes.facebook]
+  - id: tours
+    titulo: "Tus tours"
+    pregunta: "Cuéntame los tours que haces: nombre, cuánto duran, dónde quedáis, qué días y a qué hora, en qué idioma y si es a la gorra o con precio. Uno por línea."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido, con su foto."
+    tipo: lista
+    campos: [secciones.tours.tours]
+  - id: horarios
+    titulo: "Tu calendario"
+    pregunta: "¿Qué días y a qué hora sale cada tour? Por ejemplo: «Todos los días, 10:30, zona vieja»."
+    ayuda: "Si lo prefieres, añádelo luego en Contenido."
+    tipo: lista
+    campos: [secciones.horarios.horarios]
+  - id: guia
+    titulo: "Quién eres"
+    pregunta: "Preséntate: desde cuándo eres guía, qué te gusta contar y por qué la gente sale contenta de tus tours."
+    tipo: texto
+    campos: [secciones.guia.titulo, secciones.guia.texto, secciones.guia.items]
+  - id: que-veras
+    titulo: "Qué se ve"
+    pregunta: "¿Qué lugares o paradas visitáis en tus tours? Uno por línea, con una frase si quieres."
+    ayuda: "Si lo prefieres, añádelos luego en Contenido, con su foto."
+    tipo: lista
+    campos: [secciones.que-veras.items]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué te preguntan más a menudo? La propina, si hay que reservar, qué pasa si llueve, si se puede ir con niños… Escribe cada pregunta y lo que respondes."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: reserva
+    titulo: "Reservar"
+    pregunta: "¿Cómo confirmas las reservas y qué tiene que saber la gente antes de venir?"
+    ayuda: "Si reservas en otra web, pon su dirección en «Cómo te encuentran»: saldrá un botón para reservar en línea."
+    tipo: texto
+    campos: [secciones.reserva.titulo, secciones.reserva.texto]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada de tu ciudad y, si quieres, las de tus tours, las paradas y tu punto de encuentro."
+    ayuda: "Sube las tuyas o elige una del banco. Mejor sin caras de gente. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.guia.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

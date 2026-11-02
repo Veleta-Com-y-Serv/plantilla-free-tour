@@ -1,0 +1,73 @@
+---
+// Portada partida a sangre: bloque rojo teja con `antetitulo`, título enorme, `texto`, `items` (titulo) como
+// etiquetas con check y los botones `cta` (píldora clara) y `cta_secundario`; la foto de la ciudad (`imagen`) ocupa
+// la otra mitad hasta el borde de la ventana (arriba en móvil). Sobre la costura, el sello azul giratorio con el
+// texto de `sello` («Reserva gratis · Paga con propina ·»). Borde inferior troquelado como un sello de correos.
+// Sin imagen: bloque teja a todo el ancho con el sello a la derecha. Todo sale de site.yaml.
+import { seccion, enlace, cadena } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const cta = enlace(s?.cta);
+const cta2 = enlace(s?.cta_secundario);
+const sello = cadena(s?.sello);
+const etiquetas = (s?.items ?? []).filter((i) => cadena(i.titulo));
+const idSello = `sello-${id}`;
+---
+
+{
+  s && (
+    <section id={id} class="banda banda--teja troquel">
+      <div class:list={['grid lg:min-h-[calc(100svh-var(--alto-cabecera))]', s.imagen ? 'lg:grid-cols-2' : 'min-h-[80svh]']}>
+        {s.imagen && (
+          <div class="relative min-h-[46svh] lg:order-last lg:min-h-full">
+            <div class="absolute inset-0 overflow-hidden">
+              <Imagen src={s.imagen} alt={altHero()} ancho={1600} alto={1200} prioridad={primera} respaldo="/placeholders/hero.svg" class="h-full w-full object-cover" />
+            </div>
+            {sello && (
+              <div class="sello-giro absolute right-4 -bottom-12 z-10 lg:top-auto lg:right-auto lg:bottom-[14%] lg:-left-[5.75rem]" aria-hidden="true">
+                <svg class="giro h-full w-full" viewBox="0 0 200 200">
+                  <defs><path id={idSello} d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0" /></defs>
+                  <text font-size="17" font-weight="800" fill="currentColor" letter-spacing="1.5">
+                    <textPath href={`#${idSello}`} textLength="460" lengthAdjust="spacing">{sello}</textPath>
+                  </text>
+                </svg>
+                <span class="absolute inset-0 grid place-items-center"><Icono nombre="paraguas" tam={46} /></span>
+              </div>
+            )}
+          </div>
+        )}
+        <div class:list={['relative flex flex-col justify-center pt-16 pb-14 md:pb-20 lg:py-20', s.imagen ? 'px-4 md:px-12 lg:pr-20 xl:pl-[max(2rem,calc((100vw-90rem)/2+2rem))] xl:pr-24' : 'contenedor']}>
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && <h1 class="titulo-hero mt-5 max-w-[13ch]">{s.titulo}</h1>}
+          {s.texto && <p class="mt-6 max-w-[36rem] text-lg text-fondo/90 md:text-xl">{s.texto}</p>}
+          {etiquetas.length > 0 && (
+            <ul class="mt-7 flex flex-wrap gap-2">
+              {etiquetas.map((e) => <li class="chip"><Icono nombre="check" tam={18} />{e.titulo}</li>)}
+            </ul>
+          )}
+          {(cta || cta2) && (
+            <div class="mt-9 flex flex-wrap gap-3">
+              {cta && <a class="btn" href={cta.url}><Icono nombre="ticket" tam={20} />{cta.texto}</a>}
+              {cta2 && <a class="btn-sec" href={cta2.url}>{cta2.texto}<Icono nombre="flecha" class="flecha" tam={20} /></a>}
+            </div>
+          )}
+          {!s.imagen && sello && (
+            <div class="sello-giro relative mt-12 lg:absolute lg:top-1/2 lg:right-[max(2rem,calc((100vw-90rem)/2+2rem))] lg:mt-0 lg:-translate-y-1/2" aria-hidden="true">
+              <svg class="giro h-full w-full" viewBox="0 0 200 200">
+                <defs><path id={idSello} d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0" /></defs>
+                <text font-size="17" font-weight="800" fill="currentColor" letter-spacing="1.5">
+                  <textPath href={`#${idSello}`} textLength="460" lengthAdjust="spacing">{sello}</textPath>
+                </text>
+              </svg>
+              <span class="absolute inset-0 grid place-items-center"><Icono nombre="paraguas" tam={46} /></span>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

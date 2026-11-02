@@ -1,0 +1,69 @@
+---
+// Cabecera fija a todo el ancho, siempre sólida (crema con filete teja): matasellos + nombre (o el logo), menú de
+// site.yaml, botón redondo de WhatsApp (contacto.whatsapp) y `boton_cabecera` como píldora azul (desde 640 px y
+// dentro del menú plegable). Por debajo de 1180 px, menú plegable (<details>), sin JavaScript para abrirse.
+// Aspecto en src/styles/global.css (.cabecera--tour).
+import { site, whatsapp } from '../data/site';
+import type { Enlace } from '../data/site';
+import Icono from './ui/Icono.astro';
+interface Props { variante?: string; cta?: Enlace | null }
+const { variante = 'tour', cta = null } = Astro.props;
+const extra = cta && cta.url && cta.texto ? cta : null;
+const wa = whatsapp(site.contacto.whatsapp, `Hola, escribo desde la web de ${site.nombre}.`);
+---
+
+<header class={`cabecera cabecera--${variante}`} id="cabecera">
+  <div class="contenedor cabecera-fila">
+    <a href="/" class="marca" aria-label={`${site.nombre}, inicio`}>
+      {
+        site.logo ? (
+          <img src={site.logo} alt={site.nombre} class="marca-logo" width="160" height="44" />
+        ) : (
+          <>
+            <span class="marca-inicial" aria-hidden="true"><Icono nombre="matasellos" tam={22} /></span>
+            <span class="marca-nombre">{site.nombre}</span>
+          </>
+        )
+      }
+    </a>
+    {
+      site.menu.length > 0 && (
+        <nav class="cabecera-nav" aria-label="Menú principal">
+          {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+        </nav>
+      )
+    }
+    {
+      wa && (
+        <a href={wa} class="cabecera-wa" rel="noopener" target="_blank" aria-label="Escribir por WhatsApp">
+          <Icono nombre="whatsapp" tam={22} />
+        </a>
+      )
+    }
+    {extra && <a href={extra.url} class="btn cabecera-cta">{extra.texto}</a>}
+    {
+      (site.menu.length > 0 || extra) && (
+        <details class="menu-movil">
+          <summary>
+            <span class="menu-movil-icono" aria-hidden="true" />
+            <span>Menú</span>
+          </summary>
+          <nav class="menu-movil-panel" aria-label="Menú">
+            {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+            {extra && <a href={extra.url} class="btn">{extra.texto}</a>}
+          </nav>
+        </details>
+      )
+    }
+  </div>
+</header>
+<script is:inline>
+  // Cierra el menú plegable al elegir un apartado.
+  document.addEventListener('DOMContentLoaded', function () {
+    var menu = document.querySelector('#cabecera .menu-movil');
+    if (!menu) return;
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { menu.open = false; });
+    });
+  });
+</script>

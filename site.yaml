@@ -1,0 +1,154 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+# Listas planas: nunca una lista dentro de un elemento de lista. Precios siempre entre comillas.
+nombre: Pedra e Chuvia
+eslogan: "Free tours y visitas guiadas por Santiago de Compostela, a pie y con una guía de aquí."
+sector: free-tour
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre con el matasellos.
+colores:
+  primario: "#b0412a"
+  acento: "#1d5c9e"
+  fondo: "#f6eedd"
+  texto: "#2b1d16"
+contacto:
+  telefono: "981 57 30 42"
+  email: hola@pedraechuvia.es
+  direccion: "Praza do Obradoiro, junto al Pazo de Raxoi, 15705 Santiago de Compostela (A Coruña)"
+  horario: "Tours todos los días. Teléfono y WhatsApp de 9:00 a 21:00."
+  whatsapp: "633 48 21 07"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Tours, url: "/#tours" }
+  - { texto: Horarios, url: "/#horarios" }
+  - { texto: Tu guía, url: "/#guia" }
+  - { texto: Qué verás, url: "/#que-veras" }
+  - { texto: Preguntas, url: "/#preguntas" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Reserva tu plaza, url: "/#reserva" }
+seo:
+  titulo: Pedra e Chuvia · Free tours en Santiago de Compostela
+  descripcion: "Free tours y visitas guiadas a pie por Santiago de Compostela: casco histórico, leyendas de noche y mercado. Reserva gratis y paga con propina."
+  tipo: LocalBusiness
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Free tours en Santiago de Compostela
+    titulo: Santiago se entiende andando.
+    texto: "Soy Uxía, guía de turismo y compostelana. Te enseño la ciudad vieja a pie, en grupos pequeños y sin prisa. Reservas gratis y al final pagas lo que creas que vale."
+    imagen: /fotos/hero.jpg
+    sello: "Reserva gratis · Paga con propina ·"
+    items:
+      - { titulo: Grupos pequeños }
+      - { titulo: "Castellano, gallego e inglés" }
+      - { titulo: Salgo con lluvia o con sol }
+    cta: { texto: Reserva tu plaza, url: "/#reserva" }
+    cta_secundario: { texto: Ver los tours, url: "/#tours" }
+
+  tours:
+    activa: true
+    antetitulo: Mis tours
+    titulo: Elige por dónde empezamos
+    texto: "Cuatro free tours a la gorra y dos visitas con precio cerrado. Todas salen a pie desde el centro y acaban cerca de un buen sitio para comer."
+    tours:
+      - { titulo: Free tour por la zona vieja, texto: "La catedral y sus historias, las cuatro plazas, los soportales y los rincones que no salen en las guías.", duracion: "2 h 30 min", punto_encuentro: "Praza do Obradoiro, delante del Pazo de Raxoi", horario: "Todos los días, 10:30 y 16:30", idioma: Castellano, precio: "Free tour (propina)", imagen: /fotos/tour-1.jpg, destacado: true }
+      - { titulo: Old Town free tour, texto: "El mismo recorrido por la zona vieja, contado en inglés para quien viene de fuera.", duracion: "2 h", punto_encuentro: "Praza do Obradoiro, delante del Pazo de Raxoi", horario: "Lunes a sábado, 11:00", idioma: Inglés, precio: "Free tour (propina)", imagen: /fotos/tour-2.jpg, destacado: false }
+      - { titulo: Leyendas y misterios de noche, texto: "Peregrinos perdidos, la Santa Compaña y los secretos de la Quintana con las calles ya vacías y la piedra mojada.", duracion: "1 h 45 min", punto_encuentro: "Praza da Quintana, en la escalinata", horario: "Jueves a sábado, 21:30", idioma: Castellano, precio: "Free tour (propina)", imagen: /fotos/tour-3.jpg, destacado: false }
+      - { titulo: Mercado de Abastos y tapas, texto: "Un paseo por los puestos con las placeras y cuatro paradas para probar queso, empanada, pulpo y un vino de la tierra.", duracion: "2 h 30 min", punto_encuentro: "Mercado de Abastos, entrada de la Rúa das Ameas", horario: "Martes a sábado, 11:30", idioma: Castellano, precio: "28 € por persona", imagen: /fotos/tour-4.jpg, destacado: false }
+      - { titulo: La Alameda y el Santiago romántico, texto: "El paseo de la Ferradura, las mejores vistas de la catedral y la ciudad de Rosalía de Castro.", duracion: "1 h 30 min", punto_encuentro: "Entrada del parque de la Alameda, junto a As Dúas Marías", horario: "Domingos, 12:00", idioma: Castellano, precio: "Free tour (propina)", imagen: /fotos/tour-5.jpg, destacado: false }
+      - { titulo: Visita privada para grupos, texto: "Para familias, colegios, despedidas o empresas. Elegimos juntos el recorrido, el día y la hora.", duracion: "A tu medida", punto_encuentro: "Donde os venga mejor", horario: "Con reserva", idioma: "Castellano, gallego o inglés", precio: "desde 120 € por grupo", imagen: /fotos/tour-6.jpg, destacado: false }
+    etiqueta_destacado: El más reservado
+    cta: { texto: "¿Venís en grupo? Te preparo una visita", url: "/#reserva" }
+
+  horarios:
+    activa: true
+    antetitulo: Calendario
+    titulo: Cuándo salimos cada semana
+    texto: "Llega diez minutos antes al punto de encuentro. Me reconocerás por el paraguas rojo."
+    horarios:
+      - { dia: Todos los días, hora: "10:30", tour: Free tour por la zona vieja }
+      - { dia: Todos los días, hora: "16:30", tour: Free tour por la zona vieja }
+      - { dia: Lunes a sábado, hora: "11:00", tour: Old Town free tour }
+      - { dia: Martes a sábado, hora: "11:30", tour: Mercado de Abastos y tapas }
+      - { dia: Jueves a sábado, hora: "21:30", tour: Leyendas y misterios de noche }
+      - { dia: Domingos, hora: "12:00", tour: La Alameda y el Santiago romántico }
+    nota: "En Navidad, Semana Santa y el día de Santiago cambian algunos horarios: pregúntame por WhatsApp."
+
+  guia:
+    activa: true
+    antetitulo: Tu guía
+    titulo: "Soy Uxía y esta ciudad es mi casa"
+    texto: "Nací en la Rúa Nova y llevo doce años enseñando Santiago a gente de todas partes. Estudié Historia del Arte aquí mismo y soy guía oficial de turismo de Galicia.\n\nNo me sé la ciudad de memoria: me la sé de vivirla. Te cuento lo que dicen los libros, lo que se cuenta en los bares y por qué aquí nadie sale de casa sin paraguas."
+    imagen: /fotos/guia.jpg
+    items:
+      - { titulo: Guía oficial de turismo de Galicia, icono: insignia }
+      - { titulo: "Castellano, gallego e inglés", icono: idiomas }
+      - { titulo: Grupos pequeños y sin prisas, icono: usuarios }
+    personas:
+      - { nombre: Uxía Barreiro, cargo: "Guía y fundadora", foto: /placeholders/persona.svg, texto: "Hace los tours de día, el del mercado y las visitas privadas." }
+      - { nombre: Brais Lago, cargo: "Guía de los tours en inglés y de noche", foto: /placeholders/persona.svg, texto: "Historiador y contador de leyendas. Si hay niebla, mejor." }
+    cta: { texto: Pregúntame lo que quieras, url: "/#contacto" }
+
+  que-veras:
+    activa: true
+    antetitulo: Qué verás
+    titulo: Las paradas del camino
+    texto: "Seis lugares por los que pasamos en los tours. Cada uno tiene su historia y alguno, su leyenda."
+    items:
+      - { titulo: Praza do Obradoiro, texto: "La fachada de la catedral y el sitio donde terminan el Camino miles de peregrinos.", imagen: /fotos/parada-1.jpg }
+      - { titulo: Praza da Quintana, texto: "La Puerta Santa y la sombra del peregrino que solo se ve de noche.", imagen: /fotos/parada-2.jpg }
+      - { titulo: Rúa do Franco, texto: "La calle de los vinos y las tapas, con siglos de peregrinos a la espalda.", imagen: /fotos/parada-3.jpg }
+      - { titulo: Mercado de Abastos, texto: "Naves de granito, placeras y el mejor producto gallego.", imagen: /fotos/parada-4.jpg }
+      - { titulo: Parque da Alameda, texto: "La vista de postal de la catedral desde el paseo de la Ferradura.", imagen: /fotos/parada-5.jpg }
+      - { titulo: San Martiño Pinario, texto: "Un monasterio gigantesco escondido detrás de la catedral.", imagen: /fotos/parada-6.jpg }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que cuentan al terminar
+    testimonios:
+      - { texto: "Llovía a mares y aun así fue lo mejor del viaje. Uxía consigue que te enamores de cada piedra.", autor: Carmen R., nota: "Free tour por la zona vieja, marzo de 2026" }
+      - { texto: "El tour de leyendas con Brais pone los pelos de punta. Mis hijos no han dejado de hablar de la Santa Compaña.", autor: Familia Ortega, nota: "Leyendas y misterios, agosto de 2025" }
+      - { texto: "Probamos cosas en el mercado que solos nunca habríamos pedido. Y salimos con la lista de dónde cenar.", autor: Javier y Ana, nota: "Mercado de Abastos y tapas, mayo de 2026" }
+      - { texto: "Very clear, very fun and never boring. Best way to start our stay in Santiago.", autor: Emma T., nota: "Old Town free tour, junio de 2026" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Antes de venir
+    preguntas:
+      - { pregunta: "¿De verdad el free tour es gratis?", respuesta: "Reservar no cuesta nada y no pagas por adelantado. Al terminar, cada persona deja la propina que cree que vale el tour. Si no te ha gustado, no pasa nada." }
+      - { pregunta: "¿Cuánto se suele dejar de propina?", respuesta: "Lo que te parezca justo. No hay mínimo ni te voy a mirar mal. Se puede pagar en efectivo o con el móvil." }
+      - { pregunta: "¿Hace falta reservar?", respuesta: "Sí, aunque sea gratis: así sé cuántos vamos y mantengo los grupos pequeños. Si no puedes venir, avísame por WhatsApp y dejas la plaza a otra persona." }
+      - { pregunta: "¿Qué pasa si llueve?", respuesta: "En Santiago la lluvia es parte del paisaje: el tour sale igual y buscamos soportales. Solo lo suspendo con aviso de temporal, y te escribo antes." }
+      - { pregunta: "¿Se puede ir con carrito o silla de ruedas?", respuesta: "Sí en el free tour por la zona vieja y en el de la Alameda, con algún tramo de piedra irregular. Dímelo al reservar y adapto el recorrido." }
+      - { pregunta: "¿Hacéis visitas para grupos o colegios?", respuesta: "Sí, con la visita privada para grupos. Cuéntame cuántos sois, la edad y qué os interesa, y te paso el precio cerrado." }
+
+  reserva:
+    activa: true
+    antetitulo: Reserva gratis
+    titulo: Reserva tu plaza
+    texto: "Dime qué tour, qué día y cuántas personas sois. Te confirmo la plaza por WhatsApp o por correo el mismo día."
+    items:
+      - { titulo: Eliges tour y día, texto: "Con el formulario o por WhatsApp." }
+      - { titulo: Te confirmo, texto: "Con el punto de encuentro exacto y mi teléfono." }
+      - { titulo: Nos vemos allí, texto: "Busca el paraguas rojo diez minutos antes." }
+    enlace_reservas: "https://reservas.pedraechuvia.es"
+    texto_reservas: Prefiero reservar en línea
+    boton: Reservar mi plaza
+    nota: "Reservar es gratis y puedes cancelar cuando quieras."
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Llámame o escríbeme
+    texto: "Lo más rápido es un WhatsApp. Si estoy en un tour, te contesto en cuanto termine."
+    imagen: /fotos/contacto.jpg
+    horario:
+      - { dia: Todos los días, horas: "9:00 – 21:00" }
+    boton: Enviar mensaje

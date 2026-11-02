@@ -1,0 +1,58 @@
+---
+// Horarios: banda azul con el calendario de la semana. `horarios: [{dia, hora, tour}]` se agrupa por `dia`
+// («Todos los días», «Domingos»…), en columnas que llenan el ancho (una por grupo en escritorio, apiladas en móvil):
+// hora enorme y el tour, que lleva al formulario de reserva con ese tour elegido. `nota` opcional debajo, junto a un
+// botón de WhatsApp. Sin salidas no se pinta.
+import { seccion, site, cadena, whatsapp } from '../../data/site';
+import type { Salida } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const { id } = Astro.props;
+const s = seccion(id);
+const salidas = s?.horarios ?? [];
+const grupos = new Map<string, Salida[]>();
+for (const h of salidas) {
+  const clave = h.dia || '';
+  grupos.set(clave, [...(grupos.get(clave) ?? []), h]);
+}
+const nota = cadena(s?.nota);
+const reserva = Object.entries(site.secciones).find(([k, x]) => x.activa && (k === 'reserva' || x.tipo === 'reserva'))?.[0];
+const wa = whatsapp(site.contacto.whatsapp, 'Hola, quiero preguntar por los horarios de los tours.');
+---
+
+{
+  s && salidas.length > 0 && (
+    <Seccion id={id} banda="azul" class="troquel">
+      <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]">
+        {[...grupos.entries()].map(([dia, lista]) => (
+          <section class="dia" aria-label={dia || undefined}>
+            {dia && <h3 class="text-[1.5rem]">{dia}</h3>}
+            <ul class="mt-2">
+              {lista.map((h) => (
+                <li class="salida">
+                  {h.hora && <span class="salida-hora">{h.hora}</span>}
+                  {h.tour && (
+                    reserva ? (
+                      <a class="font-semibold leading-snug underline-offset-4 hover:underline" href={`#${reserva}`} data-tour={h.tour}>{h.tour}</a>
+                    ) : (
+                      <span class="font-semibold leading-snug">{h.tour}</span>
+                    )
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+      {(nota || wa) && (
+        <div class="mt-14 flex flex-col gap-5 border-t-2 border-dotted border-[color:var(--claro-suave)] pt-8 md:flex-row md:items-center md:justify-between">
+          {nota && <p class="serif max-w-[46rem] text-xl italic">{nota}</p>}
+          {wa && <a class="btn shrink-0" href={wa} rel="noopener" target="_blank"><Icono nombre="whatsapp" tam={20} />Preguntar por WhatsApp</a>}
+        </div>
+      )}
+    </Seccion>
+  )
+}

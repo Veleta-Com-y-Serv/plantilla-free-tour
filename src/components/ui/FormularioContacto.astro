@@ -1,0 +1,78 @@
+---
+// Formulario corto sin servidor: si hay email en site.yaml abre el programa de correo (mailto) con todos los campos
+// en el cuerpo. Si no hay email, se queda como muestra y lo avisa.
+// Campos: nombre, teléfono y qué necesitas. Con `reserva`: además tour (desplegable con `tours`), fecha y personas;
+// el mensaje pasa a ser opcional. `prefijo`: para que dos formularios no repitan ids.
+// Los enlaces con `data-tour` («Reservar» de cada tour y del calendario) eligen ese tour en el desplegable.
+// Para un envío real, cambia `action` por el de tu proveedor.
+import { site } from '../../data/site';
+interface Props { boton?: string; class?: string; asunto?: string; tours?: string[]; reserva?: boolean; prefijo?: string }
+const { boton = 'Enviar', class: clase = '', asunto = `Mensaje desde la web de ${site.nombre}`, tours = [], reserva = false, prefijo = 'f' } = Astro.props;
+const email = site.contacto.email;
+const accion = email ? `mailto:${email}?subject=${encodeURIComponent(asunto)}` : '';
+const id = (n: string) => `${prefijo}-${n}`;
+---
+
+<form class:list={['formulario', clase]} action={accion || undefined} method="post" enctype="text/plain" data-reserva={reserva ? '' : undefined}>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div class="campo">
+      <label for={id('nombre')}>Nombre</label>
+      <input id={id('nombre')} name="nombre" type="text" autocomplete="name" required />
+    </div>
+    <div class="campo">
+      <label for={id('telefono')}>Teléfono</label>
+      <input id={id('telefono')} name="telefono" type="tel" autocomplete="tel" inputmode="tel" required />
+    </div>
+    {
+      reserva && (
+        <>
+          {tours.length > 0 && (
+            <div class="campo sm:col-span-2">
+              <label for={id('tour')}>Tour</label>
+              <select id={id('tour')} name="tour">
+                {tours.map((t) => <option value={t}>{t}</option>)}
+              </select>
+            </div>
+          )}
+          <div class="campo">
+            <label for={id('fecha')}>Fecha</label>
+            <input id={id('fecha')} name="fecha" type="date" required />
+          </div>
+          <div class="campo">
+            <label for={id('personas')}>Personas</label>
+            <input id={id('personas')} name="personas" type="number" min="1" max="60" inputmode="numeric" value="2" required />
+          </div>
+        </>
+      )
+    }
+  </div>
+  <div class="campo">
+    <label for={id('mensaje')}>{reserva ? 'Algo más que deba saber (opcional)' : 'Qué necesitas'}</label>
+    <textarea id={id('mensaje')} name="mensaje" rows={reserva ? 3 : 4} required={!reserva}></textarea>
+  </div>
+  <label class="campo-check">
+    <input type="checkbox" name="privacidad" required />
+    <span>He leído el <a href="/aviso-legal">aviso legal y la política de privacidad</a>.</span>
+  </label>
+  <button type="submit" class="btn">{boton}</button>
+  <p class="formulario-aviso">
+    {
+      email
+        ? 'Al enviar se abre tu programa de correo con el mensaje listo.'
+        : 'Formulario de muestra: todavía no envía mensajes. Usa el teléfono o el WhatsApp de contacto.'
+    }
+  </p>
+</form>
+{
+  reserva && tours.length > 0 && (
+    <script is:inline define:vars={{ campo: id('tour') }}>
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('[data-tour]') : null;
+        var sel = document.getElementById(campo);
+        if (!a || !sel) return;
+        var t = a.getAttribute('data-tour');
+        for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === t) { sel.selectedIndex = i; break; }
+      });
+    </script>
+  )
+}
