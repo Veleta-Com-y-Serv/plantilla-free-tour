@@ -56,10 +56,70 @@ secciones:
     titulo: Elige por dónde empezamos
     texto: "Cuatro free tours a la gorra y dos visitas con precio cerrado. Todas salen a pie desde el centro y acaban cerca de un buen sitio para comer."
     tours:
-      - { titulo: Free tour por la zona vieja, texto: "La catedral y sus historias, las cuatro plazas, los soportales y los rincones que no salen en las guías.", duracion: "2 h 30 min", punto_encuentro: "Praza do Obradoiro, delante del Pazo de Raxoi", horario: "Todos los días, 10:30 y 16:30", idioma: Castellano, precio: "Free tour (propina)", imagen: /fotos/tour-1.jpg, destacado: true }
-      - { titulo: Old Town free tour, texto: "El mismo recorrido por la zona vieja, contado en inglés para quien viene de fuera.", duracion: "2 h", punto_encuentro: "Praza do Obradoiro, delante del Pazo de Raxoi", horario: "Lunes a sábado, 11:00", idioma: Inglés, precio: "Free tour (propina)", imagen: /fotos/tour-2.jpg, destacado: false }
-      - { titulo: Leyendas y misterios de noche, texto: "Peregrinos perdidos, la Santa Compaña y los secretos de la Quintana con las calles ya vacías y la piedra mojada.", duracion: "1 h 45 min", punto_encuentro: "Praza da Quintana, en la escalinata", horario: "Jueves a sábado, 21:30", idioma: Castellano, precio: "Free tour (propina)", imagen: /fotos/tour-3.jpg, destacado: false }
-      - { titulo: Mercado de Abastos y tapas, texto: "Un paseo por los puestos con las placeras y cuatro paradas para probar queso, empanada, pulpo y un vino de la tierra.", duracion: "2 h 30 min", punto_encuentro: "Mercado de Abastos, entrada de la Rúa das Ameas", horario: "Martes a sábado, 11:30", idioma: Castellano, precio: "28 € por persona", imagen: /fotos/tour-4.jpg, destacado: false }
+      - titulo: Free tour por la zona vieja
+        texto: "La catedral y sus historias, las cuatro plazas, los soportales y los rincones que no salen en las guías."
+        duracion: "2 h 30 min"
+        punto_encuentro: "Praza do Obradoiro, delante del Pazo de Raxoi"
+        horario: "Todos los días, 10:30 y 16:30"
+        idioma: Castellano
+        precio: "Free tour (propina)"
+        imagen: /fotos/tour-1.jpg
+        imagenes: "/fotos/parada-1.jpg; /fotos/parada-2.jpg; /fotos/parada-3.jpg"
+        destacado: true
+        detalle: |
+          Es el tour con el que empezar si Santiago es nuevo para ti. Salimos del Obradoiro, con la fachada de la catedral delante, y vamos entrando en la ciudad vieja con calma, plaza a plaza, sin prisas y con el grupo siempre a mano.
+
+          Te cuento cómo nació la ciudad alrededor de un sepulcro, por qué hay tantas piedras con historia y qué se esconde detrás de las fachadas. Pasamos por los soportales, por las calles donde se vive de verdad y por algún rincón que casi nadie conoce, y te dejo apuntados sitios para comer y pasear después.
+
+          Es un free tour: reservar no cuesta nada y al terminar dejas la propina que te parezca justa. Sale con sol y con lluvia, en grupos pequeños para que puedas preguntar lo que quieras. Si vas con carrito o necesitas un ritmo más tranquilo, avísame al reservar y adapto el recorrido.
+      - titulo: Old Town free tour
+        texto: "El mismo recorrido por la zona vieja, contado en inglés para quien viene de fuera."
+        duracion: "2 h"
+        punto_encuentro: "Praza do Obradoiro, delante del Pazo de Raxoi"
+        horario: "Lunes a sábado, 11:00"
+        idioma: Inglés
+        precio: "Free tour (propina)"
+        imagen: /fotos/tour-2.jpg
+        imagenes: "/fotos/parada-1.jpg; /fotos/parada-6.jpg"
+        destacado: false
+        detalle: |
+          Es el recorrido clásico por la ciudad vieja pensado para quien llega de fuera y prefiere que se lo cuenten en inglés. Brais, historiador y guía, te lleva por el corazón de Santiago con un lenguaje claro y sin tecnicismos.
+
+          Empezamos en la plaza de la catedral y seguimos por calles, plazas y rincones explicando qué es el Camino, por qué la ciudad vive de los peregrinos y cómo se come, se bebe y se vive aquí. Hay tiempo para fotos, para preguntas y para que te anotes qué probar después.
+
+          Como todos los free tours, reservas gratis y pagas al final lo que creas que ha valido la pena. Los grupos son pequeños y el tour sale aunque llueva: la lluvia forma parte de la ciudad. Si tienes dudas sobre el idioma o el ritmo, escríbeme antes y lo hablamos.
+      - titulo: Leyendas y misterios de noche
+        texto: "Peregrinos perdidos, la Santa Compaña y los secretos de la Quintana con las calles ya vacías y la piedra mojada."
+        duracion: "1 h 45 min"
+        punto_encuentro: "Praza da Quintana, en la escalinata"
+        horario: "Jueves a sábado, 21:30"
+        idioma: Castellano
+        precio: "Free tour (propina)"
+        imagen: /fotos/tour-3.jpg
+        imagenes: "/fotos/parada-2.jpg; /fotos/parada-5.jpg"
+        destacado: false
+        detalle: |
+          Cuando se vacían las calles, Santiago cambia. Este tour recorre la zona vieja de noche, con la piedra mojada y poca gente alrededor, y pone en voz alta las leyendas que los compostelanos se cuentan desde hace siglos.
+
+          Empezamos en la escalinata de la Quintana. Te hablo de peregrinos que no llegaron, de la Santa Compaña y de los rincones donde, según dicen, pasan cosas raras. Cada historia va con su lugar, de modo que acabas conociendo la ciudad por sus sombras.
+
+          Es un tour para adultos y para niños con ganas de emociones, y cuanto más niebla haya, mejor. Es un free tour: reservas gratis y dejas la propina al terminar. Lleva calzado cómodo y algo de abrigo, porque por la noche refresca y paramos a menudo en sitios al aire libre.
+      - titulo: Mercado de Abastos y tapas
+        texto: "Un paseo por los puestos con las placeras y cuatro paradas para probar queso, empanada, pulpo y un vino de la tierra."
+        duracion: "2 h 30 min"
+        punto_encuentro: "Mercado de Abastos, entrada de la Rúa das Ameas"
+        horario: "Martes a sábado, 11:30"
+        idioma: Castellano
+        precio: "28 € por persona"
+        imagen: /fotos/tour-4.jpg
+        imagenes: "/fotos/parada-4.jpg; /fotos/parada-3.jpg"
+        destacado: false
+        detalle: |
+          Es la visita para quien quiere conocer Santiago por el estómago. Entramos en el Mercado de Abastos, entre naves de granito, y te presento a las placeras y a los productos que llegan cada día a sus puestos.
+
+          Hacemos cuatro paradas para probar queso, empanada, pulpo y un vino de la tierra, con la explicación de qué es cada cosa, de dónde viene y cómo se pide sin que te tomen por turista. Al terminar te dejo una pequeña lista de sitios donde seguir comiendo bien.
+
+          A diferencia de los free tours, esta visita tiene precio cerrado y las degustaciones van incluidas. Es una buena opción para ir en pareja, con amigos o en familia. Si tienes alguna alergia o no comes algún alimento, dímelo al reservar y cambio las paradas.
       - { titulo: La Alameda y el Santiago romántico, texto: "El paseo de la Ferradura, las mejores vistas de la catedral y la ciudad de Rosalía de Castro.", duracion: "1 h 30 min", punto_encuentro: "Entrada del parque de la Alameda, junto a As Dúas Marías", horario: "Domingos, 12:00", idioma: Castellano, precio: "Free tour (propina)", imagen: /fotos/tour-5.jpg, destacado: false }
       - { titulo: Visita privada para grupos, texto: "Para familias, colegios, despedidas o empresas. Elegimos juntos el recorrido, el día y la hora.", duracion: "A tu medida", punto_encuentro: "Donde os venga mejor", horario: "Con reserva", idioma: "Castellano, gallego o inglés", precio: "desde 120 € por grupo", imagen: /fotos/tour-6.jpg, destacado: false }
     etiqueta_destacado: El más reservado

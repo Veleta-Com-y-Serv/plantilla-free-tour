@@ -73,3 +73,8 @@ se queda en el repo: es lo que lee quien (persona o agente) rediseñe la plantil
 - [x] `plantillas:comprobar free-tour --construir`: cumple, 0 errores y 0 avisos.
 - [ ] Fotos y previews definitivas (`preview/card.jpg`, `preview/full.jpg` son provisionales, con los SVG de
   respaldo): las genera el paso de fotos.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.

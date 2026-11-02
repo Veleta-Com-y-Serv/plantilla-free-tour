@@ -4,8 +4,11 @@
 // debajo `titulo`, `texto`, `horario`, `punto_encuentro` e `idioma`, y los botones «Reservar» (lleva el tour al
 // formulario de reserva) y WhatsApp con el tour en el mensaje. El tour con `destacado: true` va primero, a todo el
 // ancho y con `etiqueta_destacado`. `cta` opcional debajo. Sin tours no se pinta.
+// Los tours con `detalle` tienen página propia (/tours/<nombre>/): el título es un enlace que cubre la ficha entera;
+// los botones quedan por encima. Sin `detalle`, la ficha es como siempre.
 import { seccion, site, cadena, enlace, whatsapp } from '../../data/site';
 import { altFicha } from '../../lib/seo';
+import { enlaceDe } from '../../lib/paginas';
 import Seccion from '../ui/Seccion.astro';
 import Titular from '../ui/Titular.astro';
 import Imagen from '../ui/Imagen.astro';
@@ -42,7 +45,8 @@ const fichas = [...(destacado ? [destacado] : []), ...resto];
                     {t.precio && <span class="sello-valor">{t.precio}</span>}
                   </div>
                   <div class:list={['flex flex-1 flex-col p-5 md:p-6', grande && 'lg:justify-center lg:p-10 xl:p-14']}>
-                    <h3 class:list={[grande ? 'text-[clamp(2rem,3.4vw,3.25rem)]' : 'text-[1.65rem]']}>{t.titulo}</h3>
+                    <h3 class:list={[grande ? 'text-[clamp(2rem,3.4vw,3.25rem)]' : 'text-[1.65rem]']}>{enlaceDe(t) ? <a href={enlaceDe(t)} class="tour-enlace">{t.titulo}</a> : t.titulo}</h3>
+                    {enlaceDe(t) && <span class="tour-ver" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>}
                     {t.texto && <p class:list={['suave mt-3', grande && 'text-lg']}>{t.texto}</p>}
                     {(t.horario || t.punto_encuentro || t.idioma) && (
                       <ul class="mt-5 grid gap-2.5 border-t-2 border-dotted border-[color:var(--linea)] pt-5">
@@ -51,7 +55,7 @@ const fichas = [...(destacado ? [destacado] : []), ...resto];
                         {t.idioma && <li class="dato"><Icono nombre="idiomas" tam={18} /><span><span class="sr-only">Idioma: </span>{t.idioma}</span></li>}
                       </ul>
                     )}
-                    <div class="mt-auto flex flex-wrap gap-2 pt-6">
+                    <div class="relative z-[2] mt-auto flex flex-wrap gap-2 pt-6">
                       <a class="btn" href={destino} data-tour={t.titulo}>Reservar<Icono nombre="flecha" class="flecha" tam={18} /></a>
                       {site.contacto.whatsapp && (
                         <a class="btn-sec" href={wa(t.titulo)} rel="noopener" target="_blank" aria-label={`Preguntar por WhatsApp: ${t.titulo}`}><Icono nombre="whatsapp" tam={18} />Preguntar</a>
@@ -70,3 +74,11 @@ const fichas = [...(destacado ? [destacado] : []), ...resto];
     </Seccion>
   )
 }
+
+<style>
+  .tour-enlace { color: inherit; text-decoration: none; overflow-wrap: anywhere; }
+  .tour-enlace::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .tour-enlace:focus-visible { outline: none; }
+  .sello:has(.tour-enlace:focus-visible) { outline: 3px solid var(--azul); outline-offset: 4px; }
+  .tour-ver { display: inline-flex; align-items: center; gap: .3rem; margin-top: .6rem; font-weight: 800; color: var(--teja-texto); }
+</style>

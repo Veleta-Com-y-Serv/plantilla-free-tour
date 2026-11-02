@@ -19,6 +19,8 @@ export interface Noticia { fecha: string; titulo: string; texto?: string; url?: 
 export interface Tour {
   titulo: string; texto: string; duracion: string; punto_encuentro: string; horario: string; idioma: string;
   precio: string; imagen: string; destacado: boolean;
+  /** Opcionales de la ficha propia (src/lib/paginas.ts): texto largo en párrafos, fotos «a; b» y slug. */
+  detalle?: string; imagenes?: string; slug?: string;
 }
 /** Salida del calendario semanal (secciones.horarios.horarios): `dia` agrupa («Todos los días»), `hora`, `tour`. */
 export interface Salida { dia: string; hora: string; tour: string }
@@ -96,6 +98,9 @@ function tour(v: Crudo): Tour {
     precio: limpio(v.precio),
     imagen: limpio(v.imagen),
     destacado: v.destacado === true,
+    ...(typeof v.detalle === "string" && v.detalle.trim() && { detalle: v.detalle }),
+    ...(limpio(v.imagenes) && { imagenes: limpio(v.imagenes) }),
+    ...(limpio(v.slug) && { slug: limpio(v.slug) }),
   };
 }
 function salida(v: Crudo): Salida {
