@@ -20,7 +20,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: vivo
 plan_minimo: gratis
-version: 1.1.0
+version: 1.2.0
 base: astrowind
 demo_url: https://demo-plantilla-free-tour.noexpertise.com
 activa: true
@@ -29,6 +29,13 @@ orden: 620
 # Páginas propias (docs/plantillas.md § Fichas por elemento y páginas por zona). Espejo en src/data/fichas.ts.
 fichas:
   - { lista: tours, campo: tours, ruta: tours, nombre: Tour, tipo: TouristTrip }
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, qué verás).
+paginas:
+  - { ruta: tours, titulo: Tours, secciones: "tours; horarios" }
+  - { ruta: el-guia, titulo: El guía, secciones: "guia; opiniones" }
+  - { ruta: reserva, titulo: Reserva, secciones: "preguntas; reserva; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
 # tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.

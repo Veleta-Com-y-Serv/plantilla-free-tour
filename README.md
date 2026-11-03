@@ -17,6 +17,7 @@ enorme. En móvil, barra fija inferior «Llamar / WhatsApp».
   serif cursiva en antetítulos y citas, botones píldora. Detalle en `DISEÑO.md`.
 - Ejemplo: «Pedra e Chuvia», free tours ficticios de Santiago de Compostela.
 - SEO de base incluido (`src/lib/seo.ts`): canónica, og:image, JSON-LD `LocalBusiness` y de las preguntas frecuentes,
+- Varias páginas (opcional, `paginas:` en la raíz de `site.yaml`): Inicio + una página por entrada (`{ ruta, titulo, secciones: "a; b" }`, hasta 6) con el menú hecho solo; reparto recomendado en `template.yaml → paginas`. Sin la clave, una sola página larga.
   `robots.txt`, `sitemap.xml` y `llms.txt`; `noindex` si `seo.indexable: false`.
 - Contenido editable en `site.yaml`; metadatos y guion del asistente en `template.yaml`; reglas para el agente en
   `CLAUDE.md`; fotos a generar en `fotos.json`.
